@@ -1,10 +1,11 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, inject } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
 import { Product } from '../product';
 import { MatIcon } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CartService } from '../../cart/cart-service';
 
 @Component({
   selector: 'app-products-grid',
@@ -14,10 +15,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class ProductsGrid {
 
-  // declares a writable signal
+  // Injected cart service.
+  private readonly cartService = inject(CartService);
+
+  // Writable signal for the search term.
   protected readonly searchTerm = signal('');
 
-  // the parent, owns the products signal
+  // The grid owns the product list passed to each card.
   protected readonly products = signal<Product[]>([
     {
       id: 1,
@@ -56,4 +60,8 @@ export class ProductsGrid {
     this.searchTerm.set('');
   }
 
+  // Handle the addToCart output from a product card.
+  protected onAddToCart(product: Product) {
+    this.cartService.addToCart(product);
+  } 
 }

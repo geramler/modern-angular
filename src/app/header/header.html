@@ -1,4 +1,4 @@
-<!-- this component is independent from routing -->
+<!-- The app renders this header independently of the routed view. -->
 <mat-toolbar class="main-header">
   <!-- matButton is a directive from Angular Material -->
   <button matButton>
@@ -12,6 +12,12 @@
    <button matButton>Products</button>
 
    <button matButton>
-    <mat-icon aria-hidden="false" aria-label="Cart" fontIcon="shopping_cart"></mat-icon>
+    <mat-icon
+      [matBadge]="cartService.totalItems()"
+      [matBadgeHidden]="cartService.totalItems() === 0"
+      aria-hidden="false"
+      aria-label="Cart"
+      fontIcon="shopping_cart"
+    ></mat-icon>
    </button>
 </mat-toolbar>

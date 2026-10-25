@@ -3,7 +3,6 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  // optional property
-  // this field only apply to products on sale
+  // Previous price, present when the product has a sale price.
   originalPrice?: number;
 }

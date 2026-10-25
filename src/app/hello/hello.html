@@ -8,11 +8,10 @@
 <button [disabled]="isDisabled"
   (click)="onClick()">Toggle</button>
 
-<!-- signal interpolation via its getter method -->
+<!-- Read the signal in the template by calling it. -->
 <h1>Count: {{ count() }}</h1>
-<!-- computed signal readonly by design -->
+<!-- Computed signals are read-only. -->
 <h1>Double {{ doubleCount() }}</h1>
-<!-- <h1>Double Method: {{ getDoubleCount() }}</h1> -->
 
 <button (click)="increaseCounter()">+</button>
 <button (click)="decreaseCounter()">-</button>

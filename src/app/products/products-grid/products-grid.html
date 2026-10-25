@@ -2,16 +2,16 @@
 
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Search Products</mat-label>
-    <!-- populate the input with the inital signal value -->
-    <!-- update the signal value with the new text -->
+    <!-- Initialize the input from searchTerm and write edits back to the signal. -->
     <input matInput [(ngModel)]="searchTerm" placeholder="e.g. headphones" />
   </mat-form-field>
 
   <div class="products-grid">
-    <!-- Track by stable ID so Angular can reuse each product's DOM when the list changes. -->
+    <!-- Track by stable ID so Angular can preserve product views across list updates. -->
     @for (product of filteredProducts(); track product.id) {
-      <!-- property binding, passes current product to child (product-card)-->
-      <app-product-card [product]="product"/>
+      <!-- Pass the current product to the card and handle its addToCart output. -->
+      <app-product-card [product]="product"
+      (addToCart) = "onAddToCart($event)" />
     } @empty {
       <div class="empty-state">
         <mat-icon>inventory_2</mat-icon>

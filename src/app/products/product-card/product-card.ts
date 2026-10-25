@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Product } from '../product';
@@ -11,10 +11,15 @@ import { Product } from '../product';
 })
 export class ProductCard {
 
-  // receive this object from parent
-  // creates a required input signal
+  // Required input supplied by the parent and exposed to the template.
   readonly product = input.required<Product>();
-  // optional input signal that defaults to this label when the parent doesn't provide one.
-  // optional to the paret component to provide
+  // The parent can override this label; otherwise it defaults to 'Add to Cart'.
   readonly addButtonLabel = input('Add to Cart');
+
+  // Notify the parent when this product is added to the cart.
+  readonly addToCart = output<Product>();
+
+  protected onAddToCart() {
+    this.addToCart.emit(this.product());
+  }
 }

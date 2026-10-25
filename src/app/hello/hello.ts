@@ -8,8 +8,7 @@ import { Component, computed, effect, signal } from '@angular/core';
 })
 export class Hello {
 
-  // Angular property,
-  // can be accessed by any other class which is extending this
+  // Subclasses can access this protected property.
   protected title = 'Welcome to Modern Angular!';
 
   protected isDisabled = false;
@@ -22,25 +21,17 @@ export class Hello {
   // signal property
   protected count = signal(0);
 
-  // computed signal property
-  // runs on dependent signal change
+  // Derives a read-only value from count.
   protected doubleCount = computed(() => this.count() * 2);
 
-  // effect property
-  // readonly means not reasignable
-  private readonly countLog = effect( () => {
+  // Keep the effect reference from being reassigned.
+  private readonly countLog = effect(() => {
     console.log('Count changed:', this.count())
   });
 
-  // runs everytime the Angular change detection kicks in
-  // getDoubleCount() {
-  //   console.log('getDoubleCount called');
-  //   return this.count() * 2;
-  // }
-
   protected increaseCounter() {
-   // same as: count = count + 1;
-   this.count.update(value => value + 1);
+    // Add one to the current signal value.
+    this.count.update(value => value + 1);
   }
 
   protected decreaseCounter() {
