@@ -3,18 +3,53 @@
 }
 
 .main-header {
-  padding: 0 6px;
-  position: relative;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
   z-index: 9;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
+
+  .brand-link {
+    padding-inline: 8px;
+    text-decoration: none;
+  }
 
   .branding {
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  .main-nav {
     display: flex;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: auto 0;
-    line-height: 50px;
-    padding: 0 64px 0 8px;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .active-link {
+    color: var(--mat-sys-primary);
+    background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+  }
+
+  .cart-icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .cart-label {
+    margin-left: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding-inline: 8px;
+
+    .branding {
+      font-size: 14px;
+    }
+
+    .cart-label {
+      display: none;
+    }
   }
 }

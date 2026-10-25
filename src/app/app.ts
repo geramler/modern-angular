@@ -1,14 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
-import { ProductsGrid } from './products/products-grid/products-grid';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, ProductsGrid],
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('modern-angular');
-}
+export class App {}

@@ -1,0 +1,83 @@
+<section class="cart-page" aria-labelledby="cart-title">
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">YOUR SELECTION</p>
+      <h1 id="cart-title">Shopping cart</h1>
+    </div>
+    <span class="item-count">
+      {{ cartService.totalItems() }}
+      {{ cartService.totalItems() === 1 ? 'item' : 'items' }}
+    </span>
+  </header>
+
+  @if (cartService.items().length === 0) {
+    <section class="empty-state" aria-live="polite">
+      <mat-icon aria-hidden="true">shopping_bag</mat-icon>
+      <h2>Your cart is empty</h2>
+      <p>Find something useful and it will be waiting here.</p>
+      <a matButton="filled" routerLink="/products">Browse products</a>
+    </section>
+  } @else {
+    <div class="cart-layout">
+      <section class="cart-items" aria-label="Items in your cart">
+        @for (item of cartService.items(); track item.product.id) {
+          <article class="cart-item">
+            <div class="item-details">
+              <h2>{{ item.product.name }}</h2>
+              <p>{{ item.product.description }}</p>
+              <span class="unit-price">{{ item.product.price | currency }}</span>
+            </div>
+
+            <div class="item-controls">
+              <div class="quantity-control" [attr.aria-label]="'Quantity for ' + item.product.name">
+                <button
+                  mat-icon-button
+                  type="button"
+                  [attr.aria-label]="'Decrease quantity of ' + item.product.name"
+                  (click)="cartService.decreaseQuantity(item.product.id)"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span aria-live="polite">{{ item.quantity }}</span>
+                <button
+                  mat-icon-button
+                  type="button"
+                  [attr.aria-label]="'Increase quantity of ' + item.product.name"
+                  (click)="cartService.addToCart(item.product)"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+
+              <button
+                mat-button
+                type="button"
+                class="remove-button"
+                [attr.aria-label]="'Remove ' + item.product.name + ' from cart'"
+                (click)="cartService.removeFromCart(item.product.id)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+                Remove
+              </button>
+              <strong class="line-total">{{ item.product.price * item.quantity | currency }}</strong>
+            </div>
+          </article>
+        }
+      </section>
+
+      <aside class="order-summary" aria-labelledby="summary-title">
+        <p class="eyebrow">SUMMARY</p>
+        <h2 id="summary-title">Order summary</h2>
+        <div class="summary-row">
+          <span>Items</span>
+          <span>{{ cartService.totalItems() }}</span>
+        </div>
+        <div class="summary-row subtotal">
+          <span>Subtotal</span>
+          <strong>{{ cartService.subtotal() | currency }}</strong>
+        </div>
+        <a matButton routerLink="/products" class="continue-link">Continue shopping</a>
+      </aside>
+    </div>
+  }
+</section>

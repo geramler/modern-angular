@@ -40,5 +40,26 @@ describe('CartService', () => {
     service.addToCart(secondProduct);
 
     expect(service.totalItems()).toBe(3);
+    expect(service.subtotal()).toBe(40);
+  });
+
+  it('decreases quantity and removes an item when its quantity reaches zero', () => {
+    service.addToCart(firstProduct);
+    service.addToCart(firstProduct);
+
+    service.decreaseQuantity(firstProduct.id);
+    expect(service.items()).toEqual([{ product: firstProduct, quantity: 1 }]);
+
+    service.decreaseQuantity(firstProduct.id);
+    expect(service.items()).toEqual([]);
+  });
+
+  it('removes a selected product from the cart', () => {
+    service.addToCart(firstProduct);
+    service.addToCart(secondProduct);
+
+    service.removeFromCart(firstProduct.id);
+
+    expect(service.items()).toEqual([{ product: secondProduct, quantity: 1 }]);
   });
 });

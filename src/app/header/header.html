@@ -1,23 +1,31 @@
 <!-- The app renders this header independently of the routed view. -->
 <mat-toolbar class="main-header">
-  <!-- matButton is a directive from Angular Material -->
-  <button matButton>
-    <mat-icon aria-hidden="false" aria-label="Home" fontIcon="store"></mat-icon>
-   </button>
+  <a matButton class="brand-link" routerLink="/products" aria-label="Modern Angular products">
+    <mat-icon aria-hidden="true" fontIcon="store"></mat-icon>
+    <span class="branding">Modern Angular</span>
+  </a>
 
-   <span class="branding">Modern Angular</span>
+  <span class="spacer"></span>
 
-   <span class="spacer"></span>
-
-   <button matButton>Products</button>
-
-   <button matButton>
-    <mat-icon
-      [matBadge]="cartService.totalItems()"
-      [matBadgeHidden]="cartService.totalItems() === 0"
-      aria-hidden="false"
-      aria-label="Cart"
-      fontIcon="shopping_cart"
-    ></mat-icon>
-   </button>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a matButton routerLink="/products" routerLinkActive="active-link" ariaCurrentWhenActive="page">
+      Products
+    </a>
+    <a
+      matButton
+      routerLink="/cart"
+      routerLinkActive="active-link"
+      ariaCurrentWhenActive="page"
+      [attr.aria-label]="'Cart, ' + cartService.totalItems() + ' items'"
+    >
+      <span
+        class="cart-icon"
+        [matBadge]="cartService.totalItems()"
+        [matBadgeHidden]="cartService.totalItems() === 0"
+      >
+        <mat-icon aria-hidden="true" fontIcon="shopping_cart"></mat-icon>
+      </span>
+      <span class="cart-label">Cart</span>
+    </a>
+  </nav>
 </mat-toolbar>
