@@ -11,6 +11,10 @@ import { Product } from '../product';
 })
 export class ProductCard {
 
+  // receive this object from parent
+  // creates a required input signal
   readonly product = input.required<Product>();
+  // optional input signal that defaults to this label when the parent doesn't provide one.
+  // optional to the paret component to provide
   readonly addButtonLabel = input('Add to Cart');
 }

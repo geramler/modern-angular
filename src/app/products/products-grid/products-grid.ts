@@ -14,8 +14,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class ProductsGrid {
 
+  // declares a writable signal
   protected readonly searchTerm = signal('');
 
+  // the parent, owns the products signal
   protected readonly products = signal<Product[]>([
     {
       id: 1,
@@ -41,6 +43,7 @@ export class ProductsGrid {
 
   protected readonly filteredProducts = computed(() => {
     const term = this.searchTerm().toLocaleLowerCase().trim();
+    // With no search term, return all products without filtering.
     if (!term) return this.products();
 
     return this.products().filter((product) =>
@@ -52,9 +55,5 @@ export class ProductsGrid {
   protected clearSearch() {
     this.searchTerm.set('');
   }
-
-  // protected trimSearch() {
-  //   this.searchTerm.update((value) => value.trim());
-  // }
 
 }
